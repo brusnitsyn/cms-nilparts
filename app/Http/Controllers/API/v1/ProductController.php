@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::withRelationships(request('with'))
-//            ->search(request('search'))
+            ->whereLike(['title', 'article'], request('search'))
 //            ->filters($request)
             ->orderBy(request('sort', 'created_at'), request('order', 'desc'))
             ->paginate(16);
@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function showSlug($slug)
     {
         $productSlug = DB::table('product_slugs')->where('slug', $slug)->first();
-        $product = Product::whereId($productSlug->id)->first();
+        $product = Product::whereId($productSlug->product_id)->first();
         $product->loadRelationships(request('with'));
         return ProductResource::make($product);
     }
