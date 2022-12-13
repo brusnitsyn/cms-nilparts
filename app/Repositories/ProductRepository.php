@@ -19,4 +19,12 @@ class ProductRepository extends ModuleRepository
     {
         $this->model = $model;
     }
+
+    public function getFormFields($object)
+    {
+        $fields = parent::getFormFields($object);
+        $fields['pub_user_id'] = auth()->id();
+
+        return $fields;
+    }
 }
