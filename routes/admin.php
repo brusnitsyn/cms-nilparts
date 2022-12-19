@@ -9,8 +9,9 @@ Route::group(['prefix' => 'products'], function () {
     Route::module('productCategories');
 });
 
-Route::group(['prefix' => 'indexPage'], function () {
+Route::group(['prefix' => 'front'], function () {
     Route::module('indices');
     Route::module('indexSlides');
     Route::module('indexBanners');
+    Route::module('blogs');
 });

@@ -20,10 +20,10 @@ class BlogResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'sub_title' => $this->sub_title,
-            'content' => $this->content,
             'slug' => $this->slug,
-            'user' => UserResource::make($this->user),
-            'image' => AttachmentResource::make($this->attachments),
+            'blocks' => $this->blocks,
+//            'user' => UserResource::make($this->user),
+//            'image' => AttachmentResource::make($this->attachments),
             'created_at' => $this->created_at->format('d.m.Y H:i')
         ];
     }

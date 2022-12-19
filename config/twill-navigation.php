@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'indexPage' => [
-        'title' => 'Главная',
-        'route' => 'admin.indexPage.indexBanners.index',
+    'front' => [
+        'title' => 'Фронт',
+        'route' => 'admin.front.indexBanners.index',
         'primary_navigation' => [
             'indexBanners' => [
               'title' => 'Баннер акций',
@@ -12,16 +12,21 @@ return [
             'indexSlides' => [
                 'title' => 'Слайдер',
                 'module' => true
-            ]
+            ],
+            'blogs' => [
+                'title' => 'Новости',
+                'module' => true,
+            ],
         ]
     ],
     'products' => [
         'title' => 'Товары',
         'route' => 'admin.products.products.index',
         'primary_navigation' => [
-            'landing' => [
+            'products' => [
                 'title' => 'Товары',
-                'route' => 'admin.products.products.index',
+                'module' => true
+//                'route' => 'admin.products.products.index',
             ],
             'productCategories' => [
                 'title' => 'Категории',
