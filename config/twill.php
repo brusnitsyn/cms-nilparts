@@ -2,7 +2,6 @@
 
 return [
     'admin_app_url' => env('ADMIN_APP_URL', env('APP_URL')),
-    'admin_app_path' => env('ADMIN_APP_PATH', '/admin'),
     'locale' => 'ru',
     'available_user_locales' => [
         'en',
