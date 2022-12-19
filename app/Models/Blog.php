@@ -2,49 +2,56 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\WithRelationships;
-use Illuminate\Support\Str;
+use A17\Twill\Models\Behaviors\HasBlocks;
+use A17\Twill\Models\Behaviors\HasSlug;
+use A17\Twill\Models\Behaviors\HasMedias;
+use A17\Twill\Models\Behaviors\HasFiles;
+use A17\Twill\Models\Behaviors\HasRevisions;
+use A17\Twill\Models\Model;
 
 class Blog extends Model
 {
-    use HasFactory, WithRelationships;
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($model) {
-            $model->slug = $model->id . '-' . Str::slug($model->title);
-            $model->save();
-        });
-
-        static::updating(function ($model) {
-            $model->slug = $model->id . '-' . Str::slug($model->title);
-        });
-
-        static::saved(function ($model) {
-            if(request()->hasFile('image'))
-                $model->uploadFile(request()->file('image'), 'blog');
-        });
-    }
-
-    protected static $relationships = [
-        'attachments',
-    ];
+    use HasBlocks, HasSlug, HasMedias, HasFiles, HasRevisions;
 
     protected $fillable = [
-        'title', 'sub_title', 'content', 'slug'
+        'published',
+        'title',
+        'sub_title',
+        'description',
     ];
 
-    public function attachments()
-    {
-        return $this->morphOne(Attachment::class, 'attachmentable');
-    }
+    public $slugAttributes = [
+        'title',
+    ];
 
-    public function user()
-    {
-        return $this->hasOne(User::class, 'id', 'creator_id');
-    }
+    public $mediasParams = [
+        'cover' => [
+            'default' => [
+                [
+                    'name' => 'default',
+                    'ratio' => 16 / 9,
+                ],
+            ],
+            'mobile' => [
+                [
+                    'name' => 'mobile',
+                    'ratio' => 1,
+                ],
+            ],
+            'flexible' => [
+                [
+                    'name' => 'free',
+                    'ratio' => 0,
+                ],
+                [
+                    'name' => 'landscape',
+                    'ratio' => 16 / 9,
+                ],
+                [
+                    'name' => 'portrait',
+                    'ratio' => 3 / 5,
+                ],
+            ],
+        ],
+    ];
 }
