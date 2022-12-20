@@ -11,7 +11,10 @@ use A17\Twill\Models\Behaviors\HasPosition;
 use A17\Twill\Models\Behaviors\Sortable;
 use A17\Twill\Models\Media;
 use A17\Twill\Models\Model;
+use App\Filters\ProductFilter;
+use App\Filters\QueryFilter;
 use App\Traits\WithRelationships;
+use Illuminate\Database\Eloquent\Builder;
 use Intervention\Image\Facades\Image;
 
 class Product extends Model implements Sortable
@@ -46,10 +49,15 @@ class Product extends Model implements Sortable
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function scopeFilter(Builder $builder, QueryFilter $filter)
+    {
+        $filter->apply($builder);
+    }
+
     public function scopeCover()
     {
         // $collection = collect($this->medias);
- 
+
         // $collection->contains(function ($value, $key) {
         //     return $value->pivot->role === 'cover';
         // });
@@ -57,7 +65,7 @@ class Product extends Model implements Sortable
         // $url = 'storage/' . $collection[0]->uuid;
 
         // $image = Image::make($url)
-        //     ->crop($collection[0]->pivot->crop_w, $collection[0]->pivot->crop_h, 
+        //     ->crop($collection[0]->pivot->crop_w, $collection[0]->pivot->crop_h,
         //     $collection[0]->pivot->crop_x, $collection[0]->pivot->crop_y);
 
         return $this->image('cover');
@@ -66,13 +74,13 @@ class Product extends Model implements Sortable
     public function scopeMedia()
     {
         // $collection = collect($this->medias);
- 
+
         // $collection->contains(function ($value, $key) {
         //     return $value->pivot->role === 'preview';
         // });
-        
+
         // $image = Image::make($url)
-        //     ->crop($collection[0]->pivot->crop_w, $collection[0]->pivot->crop_h, 
+        //     ->crop($collection[0]->pivot->crop_w, $collection[0]->pivot->crop_h,
         //         $collection[0]->pivot->crop_x, $collection[0]->pivot->crop_y)
         //     ->encode('data-url');
 

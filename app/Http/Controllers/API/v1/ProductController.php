@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Data\ProductData;
+use App\Filters\ProductFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
@@ -27,11 +28,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request, ProductFilter $filter)
     {
         $products = Product::withRelationships(request('with'))
             ->whereLike(['title', 'article'], request('search'))
-//            ->filters($request)
+            ->filter($filter)
             ->orderBy(request('sort', 'created_at'), request('order', 'desc'))
             ->paginate(16);
 

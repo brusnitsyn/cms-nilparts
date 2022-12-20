@@ -22,7 +22,6 @@ class ProductCategoryController extends Controller
             $categories = ProductCategoryResource::collection(ProductCategory::withRelationships(['childrens', 'medias'])->whereNull('category_parent_id')->orderBy('title')->get());
         }
 
-        //$categories = ProductCategoryResource::collection(ProductCategory::all());
         return $categories;
     }
 
@@ -53,7 +52,7 @@ class ProductCategoryController extends Controller
      */
     public function show(ProductCategory $productCategory)
     {
-        //
+
     }
 
     /**
