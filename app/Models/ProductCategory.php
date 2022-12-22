@@ -21,7 +21,7 @@ class ProductCategory extends Model implements Sortable
         'medias',
         'products',
         'parent',
-        'childrens'
+        'children'
     ];
 
     protected $fillable = [

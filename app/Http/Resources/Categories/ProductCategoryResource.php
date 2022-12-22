@@ -20,6 +20,8 @@ class ProductCategoryResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'image' => $this->when($this->relationLoaded('medias'), $this->media()),
+            'parent_id' => $this->category_parent_id,
+            'products' => $this->when($this->relationLoaded('products'), $this->products()->paginate(16)),
             'children' => $this->when($this->childrens->count(), self::collection($this->childrens)),
         ];
     }
