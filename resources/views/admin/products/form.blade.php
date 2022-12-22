@@ -11,6 +11,7 @@
         'name' => 'category_id',
         'label' => 'Категория',
         'placeholder' => 'Выберите категорию',
+        'searchable' => true,
         'options' => $categories
     ])
 
@@ -24,6 +25,11 @@
         'name' => 'machines',
         'label' => 'Применяемость',
         'maxlength' => 100
+    ])
+
+    @formField('checkbox', [
+        'name' => 'in_stock',
+        'label' => 'В наличии',
     ])
 
     @formField('input', [
