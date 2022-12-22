@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Categories\ProductCategoryResource;
 use App\Models\ProductCategory;
+use App\Models\Slugs\ProductCategorySlug;
 use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
@@ -16,13 +17,7 @@ class ProductCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->filled('slug')) {
-            $categories = ProductCategoryResource::make(ProductCategory::where('slug', $request->slug)->first());
-        } else {
-            $categories = ProductCategoryResource::collection(ProductCategory::withRelationships(['childrens', 'medias'])->whereNull('category_parent_id')->orderBy('title')->get());
-        }
-
-        return $categories;
+        return ProductCategoryResource::collection(ProductCategory::withRelationships([ 'medias'])->whereNull('category_parent_id')->orderBy('title')->get());
     }
 
     /**
@@ -50,9 +45,12 @@ class ProductCategoryController extends Controller
      * @param  \App\Models\ProductCategory  $productCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductCategory $productCategory)
+    public function show($slug)
     {
-
+        $categorySlug = ProductCategorySlug::where('slug', $slug)->first();
+        $category = ProductCategory::whereId($categorySlug->product_category_id)
+            ->first();
+        return ProductCategoryResource::make($category);
     }
 
     /**

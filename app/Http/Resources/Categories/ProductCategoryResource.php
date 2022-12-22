@@ -19,9 +19,8 @@ class ProductCategoryResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'title' => $this->title,
-//            'parent_id' => $this->category_parent_id,
             'image' => $this->when($this->relationLoaded('medias'), $this->media()),
-            'children' => self::collection($this->childrens),
+            'children' => $this->when($this->childrens->count(), self::collection($this->childrens)),
         ];
     }
 }
