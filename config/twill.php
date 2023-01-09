@@ -30,6 +30,6 @@ return [
         'image_service' => env('MEDIA_LIBRARY_IMAGE_SERVICE', 'A17\Twill\Services\MediaLibrary\Local'),
         'acl' => env('MEDIA_LIBRARY_ACL', 'private'),
         'filesize_limit' => env('MEDIA_LIBRARY_FILESIZE_LIMIT', 50),
-        'allowed_extensions' => ['jpg', 'png', 'jpeg'],
+        'allowed_extensions' => ['jpg', 'png', 'jpeg', 'webp'],
     ],
 ];
