@@ -16,6 +16,7 @@ class IndexSlide extends Model implements Sortable
     protected $fillable = [
         'published',
         'title',
+        'description',
         'btn_link',
         'btn_text',
         'position',
