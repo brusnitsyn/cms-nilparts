@@ -2,6 +2,15 @@
 
 @section('contentFields')
     @formField('input', [
+        'name' => 'description',
+        'label' => 'Описание',
+        'required' => true,
+        'maxlength' => 164,
+        'type' => 'textarea',
+        'rows' => 3,
+        'placeholder' => '',
+    ])
+    @formField('input', [
         'name' => 'btn_link',
         'label' => 'Ссылка',
         'required' => true,
