@@ -17,6 +17,8 @@ class SlideResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
             'btn_link' => $this->btn_link,
             'btn_text' => $this->btn_text,
             'image' => $this->media(),
